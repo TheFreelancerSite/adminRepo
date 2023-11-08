@@ -342,7 +342,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 }`}
                             >
-                              Form Layout
+                              {/* Form Layout */}
                             </Link>
                           </li>
                         </ul>

@@ -6,7 +6,7 @@ const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 interface ChartFourState {
   series: { data: number[] }[];
-}
+} 
 
 const ChartFour: React.FC = () => {
   const [state, setState] = useState<ChartFourState>({

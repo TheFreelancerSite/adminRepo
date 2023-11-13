@@ -1,5 +1,5 @@
 {
-  "name": "freelanci-admin-free-nextjs",
+  "name": "tailadmin-free-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,10 +16,11 @@
     "@types/react-dom": "18.2.7",
     "apexcharts": "^3.41.1",
     "autoprefixer": "10.4.14",
+    "axios": "^1.6.1",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "jsvectormap": "^1.5.3",
-    "next": "13.4.12",
+    "next": "^13.5.6",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-apexcharts": "^1.4.1",

@@ -273,11 +273,14 @@ const SignIn: React.FC = () => {
                 </div>
 
                 <div className="mb-5">
+                  <Link href='/'>
                   <button
                     type="submit"
                     className="btn-primary"
                   > Sign In
                   </button>
+                  
+                  </Link>
                 </div>
               </form>
             </div>

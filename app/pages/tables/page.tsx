@@ -106,7 +106,7 @@ const TablesPage = () => {
                       <Image src={client.imgUrl} alt="Client" width={48} height={48} />
                     ) : (
                       <img
-                        src="app\image\666201.png" // Replace with the actual path to your default image
+                        src="https://cdn2.iconfinder.com/data/icons/basic-ui-set/100/Admin-128.png" // Replace with the actual path to your default image
                         alt="Default Client"
                         width={48}
                         height={48}
@@ -183,7 +183,7 @@ const TablesPage = () => {
                       <Image src={freelancer.imgUrl} alt="freelancer" width={48} height={48} />
                     ) : (
                       <img
-                        src="app\image\666201.png" // Replace with the actual path to your default image
+                        src="https://cdn2.iconfinder.com/data/icons/basic-ui-set/100/Admin-128.png"
                         alt="Default freelancer"
                         width={48}
                         height={48}

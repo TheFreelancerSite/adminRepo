@@ -1,4 +1,5 @@
 import ECommerce from "@/components/Dashboard/E-commerce";
+import SignIn from "@/components/Login/Login";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <ECommerce />
+      <SignIn />
     </>
   );
 }

@@ -1,44 +1,12 @@
 'use client'
+
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
-import {useEffect, useState} from 'react'
+import react, {useEffect, useState} from 'react'
 
-// import { Metadata } from "next";
-// export const metadata: Metadata = {
-//   title: "Profile Page | Next.js E-commerce Dashboard Template",
-//   description: "This is Profile page for TailAdmin Next.js",
-//   // other metadata
-// };
 
-type adminData = {
-  id: number | null; // Accepts null values
-  imgUrl: string | null; // Accepts null values
-  role: string | null; // Accepts null values
-  email: string | null; // Accepts null values
-};
+
 const Profile = () => {
-  const [adminData, setAdminData] = useState<adminData | null>(null);
-
-  useEffect(() => {
-    const apiUrl = 'http://localhost:3000/admin/profile';
-
-    // Fetch admin data when the component mounts
-    fetch(apiUrl, {
-      method: 'GET',
-      // You may need to include an authentication token or cookies for the request.
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch admin data');
-        }
-        return response.json();
-      })
-      .then((data: adminData) => setAdminData(data))
-      .catch((error) => {
-        console.error(error);
-        // Handle the error, e.g., set an error state
-      });
-  }, []);
   
   return (
     <>
@@ -47,7 +15,7 @@ const Profile = () => {
       <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative z-20 h-35 md:h-65">
           <Image
-            src={"/images/cover/cover-01.png"}
+            src={'https://th.bing.com/th/id/OIP.HL7KUTNBLhjepYoHo3L6iwAAAA?pid=ImgDet&rs=1'}
             alt="profile cover"
             className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
             width={970}

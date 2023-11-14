@@ -31,13 +31,17 @@ type Freelancer = {
 const TablesPage = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [freelancers, setFreelancers] = useState<Freelancer[]>([]);
-
+  const token = localStorage.getItem('token');
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/admin/clients");
+        const response = await axios.get("http://localhost:3000/admin/clients", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setClients(response.data);
-        
+
       } catch (error) {
         console.error("Error fetching client details:", error);
       }
@@ -45,7 +49,11 @@ const TablesPage = () => {
 
     const fetchFreelancers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/admin/freelancers");
+        const response = await axios.get("http://localhost:3000/admin/freelancers", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setFreelancers(response.data);
       } catch (error) {
         console.error("Error fetching freelancer details:", error);

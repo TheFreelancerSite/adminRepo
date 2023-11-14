@@ -2,7 +2,7 @@
 import React, { FormEvent, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Use "router" instead of "navigation"
+import { useRouter } from "next/navigation"; 
 import axios from "axios";
 
 const SignIn: React.FC = () => {
@@ -22,10 +22,11 @@ const SignIn: React.FC = () => {
 
       const response = await axios.post('http://localhost:3000/admin/login', { email, password });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         // Authentication successful
+        console.log(response.data)
         localStorage.setItem('token', response.data.token);
-        router.push('/pages');
+        router.push('/pages/dashboard');
       } else {
         // Authentication failed
         setLoginError(response.data.error || 'An error occurred.');
@@ -47,7 +48,7 @@ const SignIn: React.FC = () => {
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
-              <Link className="mb-5.5 inline-block" href="/">
+              <Link className="mb-5.5 inline-block" href="/pages/dashboard">
                 <Image
                   className="hidden dark-block"
                   src={"/images/logo/logo.svg"}

@@ -1,14 +1,45 @@
+'use client'
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
+import {useEffect, useState} from 'react'
 
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Profile Page | Next.js E-commerce Dashboard Template",
-  description: "This is Profile page for TailAdmin Next.js",
-  // other metadata
+// import { Metadata } from "next";
+// export const metadata: Metadata = {
+//   title: "Profile Page | Next.js E-commerce Dashboard Template",
+//   description: "This is Profile page for TailAdmin Next.js",
+//   // other metadata
+// };
+
+type adminData = {
+  id: number | null; // Accepts null values
+  imgUrl: string | null; // Accepts null values
+  role: string | null; // Accepts null values
+  email: string | null; // Accepts null values
 };
-
 const Profile = () => {
+  const [adminData, setAdminData] = useState<adminData | null>(null);
+
+  useEffect(() => {
+    const apiUrl = 'http://localhost:3000/admin/profile';
+
+    // Fetch admin data when the component mounts
+    fetch(apiUrl, {
+      method: 'GET',
+      // You may need to include an authentication token or cookies for the request.
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch admin data');
+        }
+        return response.json();
+      })
+      .then((data: adminData) => setAdminData(data))
+      .catch((error) => {
+        console.error(error);
+        // Handle the error, e.g., set an error state
+      });
+  }, []);
+  
   return (
     <>
       <Breadcrumb pageName="Profile" />

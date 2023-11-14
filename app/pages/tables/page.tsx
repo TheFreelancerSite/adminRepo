@@ -31,13 +31,17 @@ type Freelancer = {
 const TablesPage = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [freelancers, setFreelancers] = useState<Freelancer[]>([]);
-
+  const token = localStorage.getItem('token');
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/admin/clients");
+        const response = await axios.get("http://localhost:3000/admin/clients", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setClients(response.data);
-        
+
       } catch (error) {
         console.error("Error fetching client details:", error);
       }
@@ -45,7 +49,11 @@ const TablesPage = () => {
 
     const fetchFreelancers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/admin/freelancers");
+        const response = await axios.get("http://localhost:3000/admin/freelancers", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setFreelancers(response.data);
       } catch (error) {
         console.error("Error fetching freelancer details:", error);
@@ -106,7 +114,7 @@ const TablesPage = () => {
                       <Image src={client.imgUrl} alt="Client" width={48} height={48} />
                     ) : (
                       <img
-                        src="app\image\666201.png" // Replace with the actual path to your default image
+                        src="https://cdn2.iconfinder.com/data/icons/basic-ui-set/100/Admin-128.png" // Replace with the actual path to your default image
                         alt="Default Client"
                         width={48}
                         height={48}
@@ -183,7 +191,7 @@ const TablesPage = () => {
                       <Image src={freelancer.imgUrl} alt="freelancer" width={48} height={48} />
                     ) : (
                       <img
-                        src="app\image\666201.png" // Replace with the actual path to your default image
+                        src="https://cdn2.iconfinder.com/data/icons/basic-ui-set/100/Admin-128.png"
                         alt="Default freelancer"
                         width={48}
                         height={48}

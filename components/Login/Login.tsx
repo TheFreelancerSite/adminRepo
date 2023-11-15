@@ -26,6 +26,7 @@ const SignIn: React.FC = () => {
         // Authentication successful
         console.log(response.data)
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('imgUrl', response.data.payload.imgurl)
         router.push('/pages/dashboard');
       } else {
         // Authentication failed

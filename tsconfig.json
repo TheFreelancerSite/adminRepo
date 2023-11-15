@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pages/tables/clientstable", "app/pages/tables/freelancerstable", "app/pages/tables/freelancerstable", "app/pages/tables/clientstable", "app/pages/tables/clientstable"],
   "exclude": ["node_modules"]
 }

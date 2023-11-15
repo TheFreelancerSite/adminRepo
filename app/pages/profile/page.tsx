@@ -1,52 +1,30 @@
 'use client'
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import axios from 'axios';
 import Image from "next/image";
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-// import { Metadata } from "next";
-// export const metadata: Metadata = {
-//   title: "Profile Page | Next.js E-commerce Dashboard Template",
-//   description: "This is Profile page for TailAdmin Next.js",
-//   // other metadata
-// };
+type Admin = {
+  id: number | null;
+  imgUrl: string | null;
+  email: string | null;
+  role: string | null;
 
-type adminData = {
-  id: number | null; // Accepts null values
-  imgUrl: string | null; // Accepts null values
-  role: string | null; // Accepts null values
-  email: string | null; // Accepts null values
-};
+}
+
 const Profile = () => {
-  const [adminData, setAdminData] = useState<adminData | null>(null);
+  const imgUrl: string = localStorage.getItem("imgUrl") ?? "";
 
-  useEffect(() => {
-    const apiUrl = 'http://localhost:3000/admin/profile';
-
-    // Fetch admin data when the component mounts
-    fetch(apiUrl, {
-      method: 'GET',
-      // You may need to include an authentication token or cookies for the request.
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch admin data');
-        }
-        return response.json();
-      })
-      .then((data: adminData) => setAdminData(data))
-      .catch((error) => {
-        console.error(error);
-        // Handle the error, e.g., set an error state
-      });
-  }, []);
+ 
   
-  return (
+    return (
     <>
       <Breadcrumb pageName="Profile" />
 
       <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative z-20 h-35 md:h-65">
-          <Image
+        <Image
             src={"/images/cover/cover-01.png"}
             alt="profile cover"
             className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
@@ -89,11 +67,12 @@ const Profile = () => {
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
           <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
             <div className="relative drop-shadow-2">
-              <Image
-                src={"/images/user/user-06.png"}
+              <img
+                src={imgUrl}
                 width={160}
                 height={160}
                 alt="profile"
+                className="rounded-full"
               />
               <label
                 htmlFor="profile"

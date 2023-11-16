@@ -100,17 +100,24 @@ const ECommerce: React.FC = () => {
         </CardDataStats>
       </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        { <ChartOne />
-        /*<ChartTwo />
-        <ChartThree /> */}
-        
-       
-       
-        
+      <div className="mt-10 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+      <div className="col-span-12 xl:col-span-8 10xl:col-span-9 mx-w-20">
+      
+          {/* Assuming these components render your charts */}
+          <div className="chart-container">
+            <ChartOne/>
+            {/* <ChartTwo className="w-full h-full" />
+            <ChartThree className="w-full h-full" /> */}
+          </div>
+        </div>
       </div>
+   
+        
     </>
   );
 };
+        
+       
+       
 
 export default ECommerce;

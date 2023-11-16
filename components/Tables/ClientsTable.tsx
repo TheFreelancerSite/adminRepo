@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Router, { useRouter } from "next/navigation";
+import { MouseEvent } from 'react';
+import { useParams } from "next/navigation";
 
 
 type Client = {
-  id: number; // Accepts null values
+  id: number;
+  userId: number// Accepts null values
   isSeller: boolean | null; // Accepts null values
   imgUrl: string | null; // Accepts null values
   userName: string | null; // Accepts null values
@@ -20,6 +24,9 @@ type Client = {
 
 const ClientsTable = () => {
   const [clients, setClients] = useState<Client[]>([]);
+
+
+  const router = useRouter()
 
   const token = localStorage.getItem('token');
   useEffect(() => {
@@ -44,6 +51,7 @@ const ClientsTable = () => {
       return;
     }
 
+
     // Display a confirmation dialog
     const confirmDelete = window.confirm("Are you sure you want to delete this user?");
 
@@ -67,6 +75,9 @@ const ClientsTable = () => {
       // User clicked "Cancel" in the confirmation dialog
       console.log('User canceled deletion');
     }
+  };
+  const redirectToClientPage = (userId: number) => {
+    router.push(`/pages/tables/clientstable/servicetable?userId=${userId}`);
   };
 
 
@@ -123,7 +134,7 @@ const ClientsTable = () => {
                 key={key}
               >
                 <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0" >
                     {client.imgUrl ? (
                       <img src={client.imgUrl} alt="Client" width={48} height={48} onClick={() => { console.log("image clicekd "); }} />
                     ) : (
@@ -132,10 +143,13 @@ const ClientsTable = () => {
                         alt="Default Client"
                         width={48}
                         height={48}
+                        onClick={() => redirectToClientPage(client.userId)}
+
                       />
                     )}
                   </div>
-                  <p className="hidden text-black dark:text-white sm:block">
+                  <p className="hidden text-black dark:text-white sm:block" onClick={() => redirectToClientPage(client.userId)}
+                  >
                     {client.userName}
                   </p>
                 </div>

@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "next/navigation";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -73,7 +75,49 @@ const FreelancersTable = () => {
   };
 
 
-
+  const banUser = async ({ userId }: { userId: number }) => {
+    try {
+      const confirmBan = window.confirm("Are you sure you want to ban this user?");
+      if (confirmBan) {
+        const response = await axios.put(`http://localhost:3000/user/ban/${userId}`, null, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        if (response.status === 200) {
+          console.log('User banned successfully');
+        } else {
+          console.error('Failed to ban user. Server returned:', response.data);
+        }
+      } else {
+        console.log('User canceled banning');
+      }
+    } catch (error) {
+      console.error('Error banning user:', error);
+    }
+  };
+  const unbanUser = async ({ userId }: { userId: number }) => {
+    try {
+      const confirmUnban = window.confirm("Are you sure you want to unban this user?");
+      if (confirmUnban) {
+        const response = await axios.put(`http://localhost:3000/user/unban/${userId}`, null, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+  
+        if (response.status === 200) {
+          console.log('User unbanned successfully');
+        } else {
+          console.error('Failed to unban user. Server returned:', response.data);
+        }
+      } else {
+        console.log('User canceled unbanning');
+      }
+    } catch (error) {
+      console.error('Error unbanning user:', error);
+    }
+  };
 
 
 
@@ -188,6 +232,13 @@ const FreelancersTable = () => {
                     fill=""
                   />
                 </svg>
+                
+              </button>
+              <button  className="p-5" onClick={() => banUser({ userId: freelancers[key].id })}>
+              <FontAwesomeIcon icon={faUserSlash} />
+              </button>
+              <button className="p-5" onClick={() => unbanUser({ userId: freelancers[key].id })}>
+              <FontAwesomeIcon icon={faUser} />
               </button>
               </div>
             </div>

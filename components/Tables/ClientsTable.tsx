@@ -1,15 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent} from "react";
 import axios from 'axios';
 import Router, { useRouter } from "next/navigation";
-import { MouseEvent } from 'react';
 import { useParams } from "next/navigation";
 
 
 type Client = {
   id: number;
-  userId: number// Accepts null values
+  
   isSeller: boolean | null; // Accepts null values
   imgUrl: string | null; // Accepts null values
   userName: string | null; // Accepts null values
@@ -18,13 +17,18 @@ type Client = {
   phone: string | null; // Accepts null values
   description: string | null; // Accepts null values
 };
+type SearchResultProps = {
+  results: Client[]; // Assuming Client is your type for individual search results
+};
 
 
 
 
 const ClientsTable = () => {
   const [clients, setClients] = useState<Client[]>([]);
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
 
   const router = useRouter()
 
@@ -76,8 +80,41 @@ const ClientsTable = () => {
       console.log('User canceled deletion');
     }
   };
-  const redirectToClientPage = (userId: number) => {
-    router.push(`/pages/tables/clientstable/servicetable?userId=${userId}`);
+  const redirectToServicePage = (userId: number) => {
+    localStorage.setItem('userId', userId.toString());
+    router.push(`/pages/tables/clientstable/servicetable`);
+  };
+  
+
+  const handleSearch = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/admin/search', { search: searchQuery });
+      const data = await response.data;
+      if (data.status) {
+        setSearchResults(data.data);
+        setFilteredResults(data.data); // Set filtered results when search is successful
+        console.log(data.data);
+      } else {
+        setSearchResults([]);
+        setFilteredResults([]); // Clear filtered results if no data
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setSearchResults([]);
+      setFilteredResults([]);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  
+    // Filter the results based on search query
+    const filtered = searchResults.filter((result: Client) =>
+      result.userName?.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFilteredResults(filtered);
   };
 
 
@@ -127,8 +164,8 @@ const ClientsTable = () => {
                 </h5>
               </div>
             </div>
-
-            {clients.map((client, key) => (
+       
+            {searchQuery && filteredResults.length > 0||clients.map((client, key) => (
               <div
                 className={`grid grid-cols-3 sm:grid-cols-6 ${key === clients.length - 1 ? "" : "border-b border-stroke dark:border-strokedark"}`}
                 key={key}
@@ -136,19 +173,21 @@ const ClientsTable = () => {
                 <div className="flex items-center gap-3 p-2.5 xl:p-5">
                   <div className="flex-shrink-0" >
                     {client.imgUrl ? (
-                      <img src={client.imgUrl} alt="Client" width={48} height={48} onClick={() => { console.log("image clicekd "); }} />
+                      <img src={client.imgUrl} alt="Client" width={48} height={48} onClick={() => { console.log("image clicekd ", client.id); }} />
                     ) : (
                       <img
                         src="https://cdn2.iconfinder.com/data/icons/basic-ui-set/100/Admin-128.png" // Replace with the actual path to your default image
                         alt="Default Client"
                         width={48}
                         height={48}
-                        onClick={() => redirectToClientPage(client.userId)}
+                        onClick={() => redirectToServicePage(client.id || 0)}
+
+
 
                       />
                     )}
                   </div>
-                  <p className="hidden text-black dark:text-white sm:block" onClick={() => redirectToClientPage(client.userId)}
+                  <p className="hidden text-black dark:text-white sm:block" onClick={() => redirectToServicePage(client.id)}
                   >
                     {client.userName}
                   </p>

@@ -1,6 +1,5 @@
 "use client"
 
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "next/navigation";
@@ -82,7 +81,7 @@ const FreelancersTable = () => {
 
   return (
     <>
-      <Breadcrumb pageName="freelancerstable" />
+      
 
 
 

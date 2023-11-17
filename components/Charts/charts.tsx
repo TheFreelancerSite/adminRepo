@@ -213,7 +213,7 @@ const ChartOne: React.FC = () => {
     }, []);
 
     return (
-        <div className="col-span-12 rounded-sm border border-stroke bg-white px-20 pt-7.5 pb-40 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
+        <div className="col-span-12 rounded-sm border border-stroke bg-white my-1.5px mx-1.5px ml-1px pt-1.5px pb-20 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-8 xl:col-span-8">
            
             <div>
                 <div id="chartOne" className="-ml-5 h-[355%] w-[105%]">
@@ -227,8 +227,8 @@ const ChartOne: React.FC = () => {
                         }}
                         series={state.series}
                         type="area"
-                        width="100%"
-                        height="100%"
+                        width="230%"
+                        height="200%"
                     />
                 </div>
             </div>

@@ -16,7 +16,7 @@ const servicetable= () => {
       <Breadcrumb pageName="Services Tables" />
 
       <div className="flex flex-col gap-10">
-        <ServicesTable services={[]}  />
+        <ServicesTable  />
        
       </div>
     </>

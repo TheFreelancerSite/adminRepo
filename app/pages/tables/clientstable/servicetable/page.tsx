@@ -1,6 +1,5 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import ClientsTable from "@/components/Tables/ClientsTable"
-
+import ServicesTable from "@/components/Tables/ServicesTable";
 
 
 
@@ -11,17 +10,17 @@ import ClientsTable from "@/components/Tables/ClientsTable"
 //   // other metadata
 // };
 
-const clientstable = () => {
+const servicetable= () => {
   return (
     <>
-      <Breadcrumb pageName="Clients Tables" />
+      <Breadcrumb pageName="Services Tables" />
 
       <div className="flex flex-col gap-10">
-        <ClientsTable  />
+        <ServicesTable  />
        
       </div>
     </>
   );
 };
 
-export default clientstable;
+export default servicetable;

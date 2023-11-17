@@ -1,18 +1,13 @@
 "use client";
 import React from "react";
-import ChartOne from "../Charts/ChartOne";
-import ChartThree from "../Charts/ChartThree";
-import ChartTwo from "../Charts/ChartTwo";
-import ChatCard from "../Chat/ChatCard";
-import TableOne from "../Tables/ClientsTable";
+import ChartOne from "../../components/Charts/charts";
+// import ChartThree from "../Charts/ChartThree";
+// import ChartTwo from "../Charts/ChartTwo";
+
 import CardDataStats from "../CardDataStats";
-// import Map from "../Maps/TestMap";
 
 // without this the component renders on server and throws an error
-import dynamic from "next/dynamic";
-const MapOne = dynamic(() => import("../Maps/MapOne"), {
-  ssr: false,
-});
+
 
 const ECommerce: React.FC = () => {
   return (
@@ -61,7 +56,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats title="Total Services" total="2.450" rate="2.59%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -105,18 +100,24 @@ const ECommerce: React.FC = () => {
         </CardDataStats>
       </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+      <div className="mt-10 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+      <div className="col-span-12 xl:col-span-8 10xl:col-span-9 mx-w-20">
+      
+          {/* Assuming these components render your charts */}
+          <div className="chart-container">
+            <ChartOne/>
+            {/* <ChartTwo className="w-full h-full" />
+            <ChartThree className="w-full h-full" /> */}
+          </div>
         </div>
-        <ChatCard />
       </div>
+   
+        
     </>
   );
 };
+        
+       
+       
 
 export default ECommerce;

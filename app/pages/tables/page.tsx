@@ -1,6 +1,5 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ReportsTable from "@/components/Tables/ReportsTable";
-import TableTwo from "@/components/Tables/TableTwo";
 import FreelancersTable from "@/components/Tables/FreelancersTable";
 import ClientsTable from "@/components/Tables/ClientsTable";
 
@@ -19,7 +18,7 @@ const TablesPage = () => {
 
       <div className="flex flex-col gap-10">
         <ClientsTable/>
-        <TableTwo />
+        
         <ReportsTable />
         <FreelancersTable/>
       </div>

@@ -10,7 +10,7 @@ import ReportsTable from "@/components/Tables/ReportsTable";
 //   // other metadata
 // };
 
-const freelancerstable = () => {
+const reporttable = () => {
   return (
     <>
       <Breadcrumb pageName="Repports Tables" />
@@ -18,9 +18,9 @@ const freelancerstable = () => {
       <div className="flex flex-col gap-10">
         <ReportsTable/>
        
-      </div>
+      </div> 
     </>
   );
 };
 
-export default freelancerstable;
+export default reporttable;

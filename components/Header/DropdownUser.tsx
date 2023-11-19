@@ -7,6 +7,7 @@ const DropdownUser = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+  
 
   // close on click outside
   useEffect(() => {
@@ -50,10 +51,10 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <Image
+          <img
             width={112}
             height={112}
-            src={"/images/user/user-01.png"}
+            src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3LJEvl8LlkqsUNZj4APMG28PMvqDbqqB-BA&usqp=CAU"}
             alt="User"
           />
         </span>

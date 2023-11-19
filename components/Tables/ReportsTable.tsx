@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Package } from "@/types/package";
-import ServicePopup from "../ServicePopup/ServicePopup"; // Adjust the import path
-import DeleteConfirmationDialog from "../DeleteDialog/DeleteConfirmationDialog"; // Adjust the import path
+import ServicePopup from "../ServicePopup/ServicePopup";
+import DeleteConfirmationDialog from "../DeleteDialog/DeleteConfirmationDialog"; 
 
 const ReportsTable: React.FC = () => {
   const [reportData, setReportData] = useState<Package[]>([]);
-  const [userData, setUserData] = useState<any>(null); // Adjust the type as needed
+  const [userData, setUserData] = useState<any>(null); 
   const [selectedService, setSelectedService] = useState<Package | null>(null);
   const [serviceInfo, setServiceInfo] = useState<{
     createdAt: Date;

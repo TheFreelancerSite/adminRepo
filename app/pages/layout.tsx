@@ -23,7 +23,9 @@ export default function RootLayout({
 
   return (
     <>
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">
+          <body suppressHydrationWarning={true}>
+
+        <div className="dark:bg-boxdark-1 dark:text-bodydark ">
           {loading ? (
             <Loader />
           ) : (
@@ -36,7 +38,7 @@ export default function RootLayout({
               {/* <!-- ===== Sidebar End ===== --> */}
 
               {/* <!-- ===== Content Area Start ===== --> */}
-              <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+              <div className="relative flex flex-1 flex-col overflow-x-hidden">
                 {/* <!-- ===== Header Start ===== --> */}
                 <Header
                   sidebarOpen={sidebarOpen}
@@ -56,7 +58,7 @@ export default function RootLayout({
             </div>
           )}
         </div>
-      
+      </body>
       </>
   );
 }

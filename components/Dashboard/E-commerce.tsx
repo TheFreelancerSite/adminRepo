@@ -3,8 +3,9 @@ import React from "react";
 import ChartOne from "../../components/Charts/charts";
 // import ChartThree from "../Charts/ChartThree";
 // import ChartTwo from "../Charts/ChartTwo";
-
+import {useState} from 'react'
 import CardDataStats from "../CardDataStats";
+import ChartBan from "../Charts/ChartBan";
 
 // without this the component renders on server and throws an error
 
@@ -106,6 +107,7 @@ const ECommerce: React.FC = () => {
           {/* Assuming these components render your charts */}
           <div className="chart-container">
             <ChartOne/>
+            <ChartBan/>
             {/* <ChartTwo className="w-full h-full" />
             <ChartThree className="w-full h-full" /> */}
           </div>

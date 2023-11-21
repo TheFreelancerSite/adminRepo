@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <div className="flex flex-wrap mx-1px mx-1px ml-3.5	">
+      <div className="flex flex-wrap 	">
         
         <ECommerce />
       </div>

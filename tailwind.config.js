@@ -18,11 +18,11 @@ module.exports = {
       black: "#000814",
       red: {
         500: "#D90429",
-        700: "#b91c1c", 
+        700: "#b91c1c",
       },
       blue: {
-        500: "#3C50E0", 
-        700: "#0070f3", 
+        500: "#3C50E0",
+        700: "#0070f3",
       },
       body: "#64748B",
       bodydark: "#AEB7C0",
@@ -243,6 +243,16 @@ module.exports = {
         7: "-5px 0 0 #313D4A, 5px 0 0 #313D4A",
         8: "1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)",
       },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            offset: -25,
+            style: {
+              fontFamily: 'Inter, sans-serif',
+            },
+          },
+        },
+      },
       dropShadow: {
         1: "0px 1px 0px #E2E8F0",
         2: "0px 1px 4px rgba(0, 0, 0, 0.12)",
@@ -261,6 +271,8 @@ module.exports = {
         "spin-3": "spin 3s linear infinite",
       },
     },
+
+    plugins: [],
   },
-  plugins: [],
 };
+

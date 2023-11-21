@@ -6,14 +6,20 @@ import DropdownUser from "./DropdownUser";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 import axios from 'axios';
+import React from "react";
+
+
+interface ComponentAProps {
+  searchResults: []; // Define the type of data you want to pass
+}
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
-}) => {
+}) =>  {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
-
+  
   const handleSearch = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -22,7 +28,7 @@ const Header = (props: {
       const data = await response.data;
       if (data.status) {
         setSearchResults(data.data);
-        console.log(data.data)
+        console.log("i'm in index ",data.data)
       } else {
         setSearchResults([]);
       }
@@ -89,7 +95,7 @@ const Header = (props: {
             />
           </Link>
         </div>
-                                                  
+{/*                                                   
         <div className="hidden sm:block">
           <form onSubmit={handleSearch}>
             <div className="relative">
@@ -129,10 +135,10 @@ const Header = (props: {
             </div>
             
           </form>
-        </div>
+        </div> */}
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
-          <ul className="flex items-center gap-2 2xsm:gap-4">
+        <div className="flex items-center gap-3 2xsm:gap-7 absolute top-0 right-0 ">
+          <ul className="flex items-center gap-2 2xsm:gap-4 ">
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />
             {/* <!-- Dark Mode Toggler --> */}

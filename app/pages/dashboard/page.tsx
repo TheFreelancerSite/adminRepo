@@ -1,6 +1,5 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
 import { Metadata } from "next";
-
+import HomePage from '../../../components/Dashboard/HomePage'
 
 export const metadata: Metadata = {
   title: "TailAdmin | Next.js E-commerce Dashboard Template",
@@ -11,9 +10,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <div className="flex flex-wrap mx-1px mx-1px ml-3.5	">
+      <div className="flex flex-wrap 	">
         
-        <ECommerce />
+        <HomePage />
       </div>
     </>
   );

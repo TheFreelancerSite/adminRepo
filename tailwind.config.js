@@ -1,6 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -16,8 +15,15 @@ module.exports = {
       current: "currentColor",
       transparent: "transparent",
       white: "#FFFFFF",
-      black: "#1C2434",
-      "black-2": "#010101",
+      black: "#000814",
+      red: {
+        500: "#D90429",
+        700: "#b91c1c",
+      },
+      blue: {
+        500: "#3C50E0",
+        700: "#0070f3",
+      },
       body: "#64748B",
       bodydark: "#AEB7C0",
       bodydark1: "#DEE4EE",
@@ -46,8 +52,10 @@ module.exports = {
       "meta-8": "#F0950C",
       "meta-9": "#E5E7EB",
       success: "#219653",
-      danger: "#D34053",
+      danger: "#E8525B",
       warning: "#FFA70B",
+      purple: "#8A2BE2", // Example of a new color
+
     },
     screens: {
       "2xsm": "375px",
@@ -235,6 +243,16 @@ module.exports = {
         7: "-5px 0 0 #313D4A, 5px 0 0 #313D4A",
         8: "1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)",
       },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            offset: -25,
+            style: {
+              fontFamily: 'Inter, sans-serif',
+            },
+          },
+        },
+      },
       dropShadow: {
         1: "0px 1px 0px #E2E8F0",
         2: "0px 1px 4px rgba(0, 0, 0, 0.12)",
@@ -253,6 +271,8 @@ module.exports = {
         "spin-3": "spin 3s linear infinite",
       },
     },
+
+    plugins: [],
   },
-  plugins: [],
 };
+

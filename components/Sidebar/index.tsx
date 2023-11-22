@@ -62,15 +62,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5  ">
+        <div className="left--20 top-0 ">
         <Link href="/">
-          <Image
-            width={176}
-            height={32}
-            src={"/images/logo/logo.svg"}
+          <img
+            width={250}
+            height={80}
+            src={"/images/logo/logo_of.png"}
             alt="Logo"
           />
         </Link>
+        </div>
 
         <button
           ref={trigger}
@@ -183,7 +185,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "dashboard" && "text-white"
                                 } `}
                             >
-                              eCommerce
+                              Home
                             </Link>
                           </li>
                         </ul>
@@ -196,7 +198,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
 
               {/* <!-- Menu Item Calendar --> */}
-              <li>
+              {/* <li>
                 <Link
                   href="/pages/calendar"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("calendar") &&
@@ -218,7 +220,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
                   Calendar
                 </Link>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Calendar --> */}
 
               {/* <!-- Menu Item Profile --> */}

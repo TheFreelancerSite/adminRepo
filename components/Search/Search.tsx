@@ -1,5 +1,6 @@
 'use client'
 import React, { ChangeEvent, useState } from 'react';
+import './style.css'
 
 export type SearchProps = {
     onSearch: (value: string) => void
@@ -27,13 +28,38 @@ const Search = (props: SearchProps) => {
                 type="search"
                 name="search"
                 placeholder={value}
-                className="bg-white h-10 px-5 pr-10 w-full rounded-full text-sm focus:outline-none"
+                style={{
+                    backgroundColor: '#ffffff',
+                    height: '40px',
+                    padding: '10px 15px',
+                    width: '100%',
+                    borderRadius: '20px',
+                    border: '1px solid #ccc',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'border-color 0.3s ease-in-out',
+                    borderColor: 'rgba(99, 179, 237, 0.5)', // Adjusted focus border color
+                }}
                 onChange={(event) => searchHandler(event)}
                 onKeyDown={handleKeyDown}
+                aria-label="Search"
             />
-            <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
+            <button
+                type="submit"
+                style={{
+                    position: 'absolute',
+                    right: '10px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    backgroundColor: '#ffffff',
+                    border: 'none',
+                    cursor: 'pointer',
+                    outline: 'none',
+                }}
+                aria-label="Search Button"
+            >
                 <svg
-                    className="h-4 w-4 fill-current"
+                    className="h-6 w-6 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                 >
@@ -45,6 +71,8 @@ const Search = (props: SearchProps) => {
                 </svg>
             </button>
         </div>
+
+
     );
 };
 

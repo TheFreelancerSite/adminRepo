@@ -16,34 +16,6 @@ const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) =>  {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [filteredResults, setFilteredResults] = useState([]);
-  
-  const handleSearch = async (e: FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('http://localhost:3000/admin/search', { search: searchQuery });
-      const data = await response.data;
-      if (data.status) {
-        setSearchResults(data.data);
-        console.log("i'm in index ",data.data)
-      } else {
-        setSearchResults([]);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setSearchResults([]);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-  
-
-
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -137,24 +109,24 @@ const Header = (props: {
           </form>
         </div> */}
 
-        <div className="flex items-center gap-3 2xsm:gap-7 absolute top-0 right-0 ">
-          <ul className="flex items-center gap-2 2xsm:gap-4 ">
-            {/* <!-- Dark Mode Toggler --> */}
+<div className="flex items-center gap-3 2xsm:gap-7 justify-end flex-grow">
+          <ul className="flex items-center gap-2 2xsm:gap-4">
+            {/* Dark Mode Toggler */}
             <DarkModeSwitcher />
-            {/* <!-- Dark Mode Toggler --> */}
+            {/* Dark Mode Toggler */}
 
-            {/* <!-- Notification Menu Area --> */}
+            {/* Notification Menu Area */}
             <DropdownNotification />
-            {/* <!-- Notification Menu Area --> */}
+            {/* Notification Menu Area */}
 
-            {/* <!-- Chat Notification Area --> */}
+            {/* Chat Notification Area */}
             <DropdownMessage />
-            {/* <!-- Chat Notification Area --> */}
+            {/* Chat Notification Area */}
           </ul>
 
-          {/* <!-- User Area --> */}
+          {/* User Area */}
           <DropdownUser />
-          {/* <!-- User Area --> */}
+          {/* User Area */}
         </div>
       </div>
     </header>

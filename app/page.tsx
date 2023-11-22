@@ -1,4 +1,3 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
 import SignIn from "@/components/Login/Login";
 import { Metadata } from "next";
 

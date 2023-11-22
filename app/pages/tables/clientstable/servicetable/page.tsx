@@ -1,4 +1,4 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+// import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ServicesTable from "@/components/Tables/ServicesTable";
 
 
@@ -13,7 +13,7 @@ import ServicesTable from "@/components/Tables/ServicesTable";
 const servicetable= () => {
   return (
     <>
-      <Breadcrumb pageName="Services Tables" />
+      {/* <Breadcrumb pageName="Services Tables" /> */}
 
       <div className="flex flex-col gap-10">
         <ServicesTable  />

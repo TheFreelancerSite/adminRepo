@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,6 +29,9 @@ const FreelancersTable = () => {
   const [isUnbanConformation , setUnBanConformationOpen] = useState(false)
   const [userToUnBan, setUserToUnBan] = useState<number | null>(null);
 
+  const [filteredResults, setFilteredResults] = useState<Freelancer[]>([]);
+  const [searchResults, setSearchResults] = useState<Freelancer[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const token = localStorage.getItem('token');
   useEffect(() => {
@@ -108,6 +111,33 @@ const FreelancersTable = () => {
     } catch (error) {
       console.error('Error unbanning user:', error);
     }
+  };
+  const handleSearch = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/admin/search', { search: searchQuery });
+      const data = await response.data;
+      if (data.status) {
+        setSearchResults(data.data); // Update local search results
+        setFilteredResults(data.data); // Update filtered results displayed on the table
+      } else {
+        setFilteredResults([]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setFilteredResults([]);
+    }
+  };
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+
+    const filtered = searchResults.filter((result: Freelancer) =>
+      result.userName?.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFilteredResults(searchResults);
   };
 
 
@@ -195,6 +225,10 @@ const FreelancersTable = () => {
     <>
       
 
+      <form onSubmit={handleSearch}>
+        <input type="text" value={searchQuery} onChange={handleChange} />
+        <button type="submit">Search</button>
+      </form>
 
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark.bg-boxdark sm:px-7.5 xl:pb-1">
@@ -213,7 +247,7 @@ const FreelancersTable = () => {
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
           Freelancers
         </h4>
-
+        
         <div className="flex flex-col">
           <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark.bg-meta-4 sm:grid-cols-6">
             <div className="p-2.5 xl:p-5">

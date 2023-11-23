@@ -7,7 +7,7 @@ const DropdownUser = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
-  
+  const imgURl = localStorage.getItem('imgUrl');
 
   // close on click outside
   useEffect(() => {
@@ -45,16 +45,16 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            Admin
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">Admin</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
           <img
             width={112}
             height={112}
-            src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3LJEvl8LlkqsUNZj4APMG28PMvqDbqqB-BA&usqp=CAU"}
+            src={imgURl!}
             alt="User"
           />
         </span>
@@ -81,9 +81,8 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
-          dropdownOpen === true ? "block" : "hidden"
-        }`}
+        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${dropdownOpen === true ? "block" : "hidden"
+          }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
@@ -176,7 +175,7 @@ const DropdownUser = () => {
               fill=""
             />
           </svg>
-          <Link href = "/">Log Out</Link>
+          <Link href="/">Log Out</Link>
         </button>
       </div>
       {/* <!-- Dropdown End --> */}

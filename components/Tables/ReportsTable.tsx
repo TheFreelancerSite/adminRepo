@@ -2,11 +2,12 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { Package } from "@/types/package";
-import ServicePopup from "../ServicePopup/ServicePopup"; // Adjust the import path
-import DeleteConfirmationDialog from "../DeleteDialog/DeleteConfirmationDialog"; // Adjust the import path
+import ServicePopup from "../ServicePopup/ServicePopup";
+import DeleteConfirmationDialog from "../DeleteDialog/DeleteConfirmationDialog"; 
 
 const ReportsTable: React.FC = () => {
   const [reportData, setReportData] = useState<Package[]>([]);
+  // const [userData, setUserData] = useState<any>(null); 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredResults, setFilteredResults] = useState<[]>([]);
   const [searchResults, setSearchResults] = useState<[]>([]);
@@ -14,13 +15,16 @@ const ReportsTable: React.FC = () => {
   const [userData, setUserData] = useState<any>(null); // Adjust the type as needed
   const [selectedService, setSelectedService] = useState<Package | null>(null);
   const [serviceInfo, setServiceInfo] = useState<{
-    title: string;
+    id: number;
     createdAt: Date;
     serviceReviews: string | null;
     job_img: string | undefined;
+    title: string;
     description: string;
-    id: Number;
+    totalStars: number;
+    isOpen: boolean;
   } | null>(null);
+  
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [userId, setUserId] = useState<any>(null);
@@ -127,8 +131,8 @@ const ReportsTable: React.FC = () => {
       return;
     }
 
-    const filtered = searchResults.filter((result: serviceInfo) =>
-      result.title?.toLowerCase().includes(e.target.value.toLowerCase())
+    const filtered = searchResults.filter((result :typeof serviceInfo) =>
+      result?.title?.toLowerCase().includes(e.target.value.toLowerCase())
     );
 
   };
@@ -150,9 +154,12 @@ const ReportsTable: React.FC = () => {
           )}
           <table className="w-full table-auto">
 
-            {isPopupOpen && serviceInfo && (
-              <ServicePopup serviceInfo={serviceInfo} onClose={closePopup} />
-            )}
+          {isPopupOpen && serviceInfo && (
+        <ServicePopup
+          serviceInfo={{ ...serviceInfo, isOpen: isPopupOpen }} 
+          onClose={closePopup}
+        />
+      )}
             <thead>
               <tr className="bg-gray-2 text-left dark:bg-meta-4">
                 <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">

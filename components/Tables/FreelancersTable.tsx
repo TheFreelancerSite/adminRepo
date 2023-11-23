@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useParams } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserSlash } from '@fortawesome/free-solid-svg-icons';
-
+import BanConformation from "../BanDialog/BanConformation"
+import UnBanConformation from "../BanDialog/UnBanConformation";
 
 
 type Freelancer = {
@@ -23,6 +24,11 @@ type Freelancer = {
 const FreelancersTable = () => {
   const { userId } = useParams();
   const [freelancers, setFreelancers] = useState<Freelancer[]>([]);
+  const [isBanConfirmationOpen, setBanConfirmationOpen] = useState(false);
+  const [userToBan, setUserToBan] = useState<number | null>(null);
+  const [isUnbanConformation , setUnBanConformationOpen] = useState(false)
+  const [userToUnBan, setUserToUnBan] = useState<number | null>(null);
+
   const [filteredResults, setFilteredResults] = useState<Freelancer[]>([]);
   const [searchResults, setSearchResults] = useState<Freelancer[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,10 +59,7 @@ const FreelancersTable = () => {
       return;
     }
 
-    // Display a confirmation dialog
-    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
-
-    if (confirmDelete) {
+  
       try {
         // Make a DELETE request to your backend API
         await axios.delete(`http://localhost:3000/admin/delete/${userId}`, {
@@ -72,17 +75,11 @@ const FreelancersTable = () => {
       } catch (error) {
         console.error('Error deleting user:', error);
       }
-    } else {
-      // User clicked "Cancel" in the confirmation dialog
-      console.log('User canceled deletion');
-    }
   };
 
 
   const banUser = async ({ userId }: { userId: number }) => {
     try {
-      const confirmBan = window.confirm("Are you sure you want to ban this user?");
-      if (confirmBan) {
         const response = await axios.put(`http://localhost:3000/user/ban/${userId}`, null, {
           headers: {
             Authorization: `Bearer ${token}`
@@ -93,17 +90,13 @@ const FreelancersTable = () => {
         } else {
           console.error('Failed to ban user. Server returned:', response.data);
         }
-      } else {
-        console.log('User canceled banning');
-      }
+     
     } catch (error) {
       console.error('Error banning user:', error);
     }
   };
   const unbanUser = async ({ userId }: { userId: number }) => {
     try {
-      const confirmUnban = window.confirm("Are you sure you want to unban this user?");
-      if (confirmUnban) {
         const response = await axios.put(`http://localhost:3000/user/unban/${userId}`, null, {
           headers: {
             Authorization: `Bearer ${token}`
@@ -115,9 +108,6 @@ const FreelancersTable = () => {
         } else {
           console.error('Failed to unban user. Server returned:', response.data);
         }
-      } else {
-        console.log('User canceled unbanning');
-      }
     } catch (error) {
       console.error('Error unbanning user:', error);
     }
@@ -151,8 +141,85 @@ const FreelancersTable = () => {
   };
 
 
+  const showBanConfirmation = (userId: number) => {
+    setUserToBan(userId);
+    setBanConfirmationOpen(true);
+  };
+  const showUnBanConfirmation = (userId: number) => {
+    setUserToUnBan(userId);
+    setUnBanConformationOpen(true);
+  };
 
+  const handleUnBanConfirmationCancel = async () => {
+    if (userToUnBan) {
+      try {
+        await unbanUser({ userId: userToUnBan });
 
+        setFreelancers((prevFreelancers) =>
+          prevFreelancers.map((freelancer) =>
+            freelancer.id === userToUnBan
+              ? { ...freelancer, isBanned: true }
+              : freelancer
+          )
+        );
+
+        console.log('User Unbanned successfully');
+      } catch (error) {
+        console.error('Error Unbanned user:', error);
+      } finally {
+        setUnBanConformationOpen(false);
+
+        setUserToUnBan(null);
+      }
+    }
+  };
+  const handleUnBanConfirmationConfirm = async () => {
+    if (userToUnBan) {
+      setUnBanConformationOpen(false);
+
+      await unbanUser({ userId: userToUnBan });
+
+      console.log('User Unbanned successfully');
+    }
+  };
+
+  const handleBanConfirmationCancel = async () => {
+    if (userToBan) {
+      try {
+        await banUser({ userId: userToBan });
+
+        setFreelancers((prevFreelancers) =>
+          prevFreelancers.map((freelancer) =>
+            freelancer.id === userToBan
+              ? { ...freelancer, isBanned: true }
+              : freelancer
+          )
+        );
+
+        console.log('User banned successfully');
+      } catch (error) {
+        console.error('Error banning user:', error);
+      } finally {
+        setBanConfirmationOpen(false);
+
+        // Reset the userToBan state
+        setUserToBan(null);
+      }
+    }
+  };
+
+ const handleBanConfirmationConfirm = async () => {
+    if (userToBan) {
+      // Close the confirmation popup
+      setBanConfirmationOpen(false);
+
+      // Add your logic here to ban the user (use the banUser function or your custom logic)
+      await banUser({ userId: userToBan });
+
+      // Perform any additional actions after confirming ban
+      console.log('User banned successfully');
+    }
+  };
 
   return (
     <>
@@ -165,6 +232,18 @@ const FreelancersTable = () => {
 
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark.bg-boxdark sm:px-7.5 xl:pb-1">
+      {isBanConfirmationOpen && (
+          <BanConformation
+            onCancel={handleBanConfirmationCancel}
+            onConfirm={handleBanConfirmationConfirm}
+          />
+        )}
+          {isUnbanConformation && (
+          <UnBanConformation
+            onCancel={handleUnBanConfirmationCancel}
+            onConfirm={handleUnBanConfirmationConfirm}
+          />
+        )}
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
           Freelancers
         </h4>
@@ -269,10 +348,10 @@ const FreelancersTable = () => {
                 </svg>
                 
               </button>
-              <button  className="p-5" onClick={() => banUser({ userId: freelancers[key].id })}>
+              <button  className="p-5" onClick={() => showBanConfirmation(freelancer.id)}>
               <FontAwesomeIcon icon={faUserSlash} />
               </button>
-              <button className="p-5" onClick={() => unbanUser({ userId: freelancers[key].id })}>
+              <button className="p-5" onClick={() => showUnBanConfirmation(freelancer.id)}>
               <FontAwesomeIcon icon={faUser} />
               </button>
               </div>

@@ -3,34 +3,19 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import axios from 'axios';
 
-type client = {
-  id: number; // Accepts null values
-  isSeller: boolean | null; // Accepts null values
-  imgUrl: string | null; // Accepts null values
-  userName: string | null; // Accepts null values
-  email: string | null; // Accepts null values
-  country: string | null; // Accepts null values
-  phone: string | null; // Accepts null values
-  description: string | null; // Accepts null values
-  createdAt: string;
-  banned: number;
-  banExpires: Date
-};
-
-type freelancer = {
-  id: number; // Accepts null values
-  isSeller: boolean | null; // Accepts null values
-  imgUrl: string | null; // Accepts null values
-  username: string | null; // Accepts null values
-  email: string | null; // Accepts null values
-  country: string | null; // Accepts null values
-  phone: string | null; // Accepts null values
-  description: string | null; // Accepts null values
+type User = {
+  id: number;
+  isSeller: boolean | null;
+  imgUrl: string | null;
+  username: string | null;
+  email: string | null;
+  country: string | null;
+  phone: string | null;
+  description: string | null;
   createdAt: string;
   banned: number;
   banExpires: Date;
 };
-
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
@@ -47,16 +32,15 @@ const options: ApexOptions = {
     markers: {
       width: 4,
       height: 4,
-      strokeColor: "#3056D3", // Adjusted property name
+      strokeColor: "#3056D3",
       strokeWidth: 3,
-      
     },
     itemMargin: {
       horizontal: 10,
-      vertical: 5
+      vertical: 5,
     },
   },
-  colors: ["#3C50E0", "#80CAEE", "#FFBB44", "#FF8042", "#00C6E8", "#B15DFF"], // Add your desired colors here
+  colors: ["#3C50E0", "#80CAEE", "#FFBB44", "#FF8042", "#00C6E8", "#B15DFF"],
   chart: {
     type: "pie",
     fontFamily: "Satoshi, sans-serif",
@@ -85,7 +69,6 @@ const options: ApexOptions = {
   ],
   dataLabels: {
     enabled: true,
-    enabledOnSeries: undefined,
     formatter: function (val, opts) {
       return opts.w.globals.series[opts.seriesIndex] + "%";
     },
@@ -97,14 +80,13 @@ const options: ApexOptions = {
       fontSize: '14px',
       fontFamily: 'Arial, sans-serif',
       fontWeight: 400,
-      colors: undefined
     },
   },
-  labels: ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5'], // Labels for pie sections
+  labels: ['Active Clients', 'Banned Clients', 'Active Freelancers', 'Banned Freelancers'],
   plotOptions: {
     pie: {
       donut: {
-        size: '65%',
+        size: '70%',
         background: 'transparent',
         labels: {
           show: true,
@@ -113,14 +95,14 @@ const options: ApexOptions = {
             offsetY: 25,
             formatter: function (val) {
               return val;
-            }
+            },
           },
           value: {
             show: true,
             offsetY: -25,
             formatter: function (val) {
               return val + "%";
-            }
+            },
           },
           total: {
             show: true,
@@ -133,65 +115,56 @@ const options: ApexOptions = {
               return w.globals.seriesTotals.reduce((a: any, b: any) => {
                 return a + b;
               }, 0) + '%';
-            }
+            },
           },
         },
       },
-    }
+    },
   },
 };
 
-
 interface ChartState {
-  series: {
-    name: string;
-    data: number[];
-  }[];
+  series: number[];
 }
 
+const ChartBan: React.FC = () => {
+  const [state, setState] = useState<ChartState>({
+    series: [],
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Use axios.all to make multiple requests concurrently
+        const [clientsResponse, freelancersResponse] = await axios.all([
+          axios.get<User[]>("http://localhost:3000/admin/clients", {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          }),
+          axios.get<User[]>("http://localhost:3000/admin/freelancers", {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          }),
+        ]);
   
-  const ChartBan: React.FC = () => {
-    const [state, setState] = useState<ChartState>({
-      series: [],
-    });
+        const countBanned = (arr: User[]) => arr.filter(item => item.banned !== 0).length;
   
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const [clientsResponse, freelancersResponse] = await Promise.all([
-            axios.get<client[]>("http://localhost:3000/admin/clients", {
-              headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            }),
-            axios.get<freelancer[]>("http://localhost:3000/admin/freelancers", {
-              headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            }),
-          ]);
+        const activeClients = clientsResponse.data.length - countBanned(clientsResponse.data);
+        const bannedClients = countBanned(clientsResponse.data);
+        const activeFreelancers = freelancersResponse.data.length - countBanned(freelancersResponse.data);
+        const bannedFreelancers = countBanned(freelancersResponse.data);
   
-          const clients = clientsResponse.data;
-          const freelancers = freelancersResponse.data;
+        console.log("Clients Response:", clientsResponse);
+        console.log("Freelancers Response:", freelancersResponse);
   
-          const countBanned = (arr: { banned: number }[]) => arr.filter(item => item.banned !== 0).length;
+        setState({
+          series: [activeClients, bannedClients, activeFreelancers, bannedFreelancers],
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
   
-          const activeClients = clients.length - countBanned(clients);
-          const bannedClients = countBanned(clients);
-          const activeFreelancers = freelancers.length - countBanned(freelancers);
-          const bannedFreelancers = countBanned(freelancers);
-  
-          setState({
-            series: [
-              { name: "Active Clients", data: [activeClients] },
-              { name: "Banned Clients", data: [bannedClients] },
-              { name: "Active Freelancers", data: [activeFreelancers] },
-              { name: "Banned Freelancers", data: [bannedFreelancers] },
-            ],
-          });
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-  
-      fetchData();
-    }, []);
+    fetchData();
+  }, []);
 
   return (
     <>

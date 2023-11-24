@@ -44,15 +44,15 @@ const ClientsTable = () => {
       }
     };
     fetchClients();
-  }, []);
+  }, [clients]);
 
   const deleteClient = async (userId: number) => {
     try {
       const response = await axios.delete(`http://localhost:3000/admin/delete/${userId}`);
 
-      if (response.status === 200) {
-        setClients(response.data);
-      }
+      // if (response.status === 200) {
+      //   setClients(response.data);
+      // }
     } catch (error) {
       console.error("Error deleting report:", error);
     }

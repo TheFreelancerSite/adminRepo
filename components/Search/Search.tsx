@@ -38,7 +38,8 @@ const Search = (props: SearchProps) => {
                     fontSize: '16px',
                     outline: 'none',
                     transition: 'border-color 0.3s ease-in-out',
-                    borderColor: 'rgba(99, 179, 237, 0.5)', // Adjusted focus border color
+                    borderColor: 'rgba(99, 179, 237, 0.5)',
+
                 }}
                 onChange={(event) => searchHandler(event)}
                 onKeyDown={handleKeyDown}
@@ -71,7 +72,6 @@ const Search = (props: SearchProps) => {
                 </svg>
             </button>
         </div>
-
 
     );
 };

@@ -54,7 +54,11 @@ module.exports = {
       success: "#219653",
       danger: "#E8525B",
       warning: "#FFA70B",
-      purple: "#8A2BE2", // Example of a new color
+      purple: "#8A2BE2",
+      indigo: {
+        500: "#3C50E0",
+        700: "#0070f3",
+      },
 
     },
     screens: {

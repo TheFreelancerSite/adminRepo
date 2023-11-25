@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Logo2 from "../../public/images/logo/Logo2.png"
+
 
 const SignIn: React.FC = () => {
   const router = useRouter();
@@ -52,17 +54,17 @@ const SignIn: React.FC = () => {
               <Link className="mb-5.5 inline-block" href="/pages/dashboard">
                 <Image
                   className="hidden dark-block"
-                  src={"/images/logo/logo_of.png"}
+                  src={Logo2}
                   alt="Logo"
-                  width={176}
-                  height={32}
+                  width={180}
+                  height={40}
                 />
                 <Image
                   className="dark-hidden"
-                  src={"/images/logo/logo_of.png"}
+                  src={Logo2}
                   alt="Logo"
-                  width={176}
-                  height={32}
+                  width={180}
+                  height={40}
                 />
               </Link>
 
